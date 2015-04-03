@@ -27,17 +27,21 @@ function updateTable(mac, bssid) {
    }
 }
 
-/* For debug purposes, easy to test via a browser */
+/* For debug purposes, sleasy and easy to test via a browser */
+/* The get here is not a true get, but you can use it to inject data */
+/*  into the table if electric imp isn't running */
 app.get('/usermac/:mac/bssid/:bssid', function(req, res) {
   updateTable(req.params.mac, req.params.bssid);
   res.send(macBssidTable);
 });
 
+/* Electric Imp uses this to dynamically update the table */
 app.put('/usermac/:mac/bssid/:bssid', function(req, res) {
   updateTable(req.params.mac, req.params.bssid);
   res.send(macBssidTable);
 });
 
+/* Return all the mac's and there corresponding bssid and timestamp. */
 app.get('/usermac/:mac', function(req, res) {
    var result = findById( macBssidTable, req.params.mac );
    res.send(result);
